@@ -42,18 +42,18 @@ public class Immigrant {
     private String observations; // Observações sobre o caso
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime registeredAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private LocalDateTime lastUpdate;
 
     @OneToMany(mappedBy = "immigrant", cascade = CascadeType.ALL)
     private List<ServiceRecord> serviceRecords = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        registeredAt = LocalDateTime.now();
+        lastUpdate = LocalDateTime.now();
         if (status == null) {
             status = ImmigrantStatus.PENDING;
         }
@@ -61,6 +61,6 @@ public class Immigrant {
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        lastUpdate = LocalDateTime.now();
     }
 }
